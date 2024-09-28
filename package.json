@@ -33,9 +33,10 @@
   },
   "homepage": "https://github.com/dimdenGD/ultimate-ws#readme",
   "dependencies": {
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.48.0"
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.48.0",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
-    "ws": "^8.18.0"
+    "exit-hook": "^2.2.1"
   }
 }
