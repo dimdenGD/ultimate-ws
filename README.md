@@ -55,7 +55,7 @@ WIP
 - ❌ skipUTF8Validation 
 - ❌ verifyClient
 - ❌ WebSocket
-- ❌ callback
+- ✅ callback
 
 ### Server events
 
