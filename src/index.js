@@ -9,7 +9,13 @@ class WebSocketServer {
         if(!options.server && !options.port) {
             throw new Error("server or port is required");
         }
+        this.options = options;
         this.listenCalled = false;
+        this.clientId = 0;
+        this.clients = new Set();
+        if(!options.path) {
+            options.path = "/*";
+        }
         if(!options?.uwsOptions) {
             options.uwsOptions = {};
         }
@@ -26,6 +32,29 @@ class WebSocketServer {
         } else {
             this.uwsApp = options.server;
         }
+        this.createHandler();
+    }
+
+    getClientId() {
+        const id = this.clientId++;
+        if(id > 100_000_000) {
+            this.clientId = 0;
+        }
+        return id;
+    }
+
+    createHandler() {
+        this.uwsApp.ws(this.options.path, {
+            upgrade: (res, req, context) => {
+                res.upgrade(
+                    { id: this.getClientId() },
+                    req.getHeader('sec-websocket-key'),
+                    req.getHeader('sec-websocket-protocol'),
+                    req.getHeader('sec-websocket-extensions'),
+                    context
+                );
+            }
+        });
     }
 
     listen(port, callback) {

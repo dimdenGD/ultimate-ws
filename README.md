@@ -40,7 +40,7 @@ WIP
 - ❌ host
 - ❌ maxPayload
 - ❌ noServer
-- ❌ path
+- ✅ path
 - ❌ perMessageDeflate
 - - ❌ serverNoContextTakeover
 - - ❌ clientNoContextTakeover
@@ -50,8 +50,8 @@ WIP
 - - ❌ zlibInflateOptions
 - - ❌ threshold
 - - ❌ concurrencyLimit
-- ❌ port
-- ❌ server
+- ✅ port
+- ✅ server
 - ❌ skipUTF8Validation 
 - ❌ verifyClient
 - ❌ WebSocket
