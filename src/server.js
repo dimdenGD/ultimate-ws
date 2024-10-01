@@ -1,7 +1,7 @@
 const uWS = require("uWebSockets.js");
 const { EventEmitter } = require("tseep");
 const IncomingMessage = require("./request.js");
-
+const WebSocket = require("./websocket.js");
 module.exports = class WebSocketServer extends EventEmitter {
     constructor(options = {}, callback) {
         super();
@@ -49,7 +49,8 @@ module.exports = class WebSocketServer extends EventEmitter {
                 );
             },
             open: (ws) => {
-                this.emit("connection", ws, ws.req);
+                ws.client = new WebSocket(ws);
+                this.emit("connection", ws.client, ws.req);
             },
         });
     }

@@ -60,7 +60,7 @@ WIP
 ### Server events
 
 - ❌ close
-- ❌ connection
+- ✅ connection
 - ❌ error
 - ❌ headers
 - ❌ listening
