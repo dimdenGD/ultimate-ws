@@ -61,10 +61,10 @@ WIP
 
 - ✅ close
 - ✅ connection
-- 🚧 error - uWS never throws error
 - ✅ headers
-- ❌ listening
-- ❌ wsClientError
+- ✅ listening
+- 🚧 error - uWS never throws errors
+- 🚧 wsClientError - uWS never throws errors
 
 ### Server properties
 

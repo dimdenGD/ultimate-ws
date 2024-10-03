@@ -30,7 +30,7 @@ module.exports = class WebSocketServer extends EventEmitter {
                 this.uwsApp = uWS.App(options.uwsOptions);
                 this.ssl = false;
             }
-            this.listen(options.port, callback);
+            process.nextTick(() => this.listen(options.port, callback));
         } else {
             this.uwsApp = options.server;
         }
@@ -89,6 +89,7 @@ module.exports = class WebSocketServer extends EventEmitter {
                 throw err;
             }
             this.port = uWS.us_socket_local_port(socket);
+            this.emit("listening");
             if(callback) callback(this.port);
         });
     }
