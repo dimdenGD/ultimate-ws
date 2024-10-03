@@ -20,6 +20,9 @@ function client() {
         setTimeout(() => {
             console.log("resuming", w.isPaused);
             w.resume();
+            setTimeout(() => {
+                process.exit(0);
+            }, 100);
         }, 100);
     });
 }

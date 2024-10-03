@@ -95,7 +95,7 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ client.bufferedAmount
 - ✅ client.close(code, reason)
 - ✅ client.isPaused
-- ❌ client.extensions
+- ✅ client.extensions
 - ❌ client.onclose
 - ❌ client.onerror
 - ❌ client.onmessage

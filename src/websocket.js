@@ -2,15 +2,20 @@ const { EventEmitter } = require("tseep");
 const { EventTarget } = require("./event-target.js");
 
 class WebSocket extends EventEmitter {
-    constructor(ws, req) {
+    constructor(ws, req, server) {
         super();
         this.ws = ws;
         this.req = req;
+        this.server = server;
         this.binaryType = "nodebuffer";
         this.incomingMessages = [];
         this.incomingMessagesSize = 0;
         this.isPaused = false;
-        this.maxPayload = 1024 * 1024 * 10; // 10 MB
+        this.maxPayload = 1024 * 1024 * 100; // 100 MB
+        this.extensions = '';
+        if(this.server.options.perMessageDeflate && req.headers["sec-websocket-extensions"] && req.headers["sec-websocket-extensions"].includes("permessage-deflate")) {
+            this.extensions = "permessage-deflate";
+        }
     }
 
     get bufferedAmount() {

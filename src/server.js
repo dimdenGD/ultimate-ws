@@ -65,7 +65,7 @@ module.exports = class WebSocketServer extends EventEmitter {
                 );
             },
             open: (ws) => {
-                ws.client = new WebSocket(ws, ws.req);
+                ws.client = new WebSocket(ws, ws.req, this);
                 if(this.clients) this.clients.add(ws.client);
                 this.emit("connection", ws.client, ws.req);
             },
