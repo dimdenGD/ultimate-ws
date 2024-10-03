@@ -71,7 +71,7 @@ WIP
 - ✅ server.address()
 - ❌ server.clients
 - ✅ server.close(callback)
-- ❌ server.handleUpgrade(request, socket, head, callback)
+- ❌ server.handleUpgrade(request, socket, head, callback) - this is unneeded. Just pass `server` (uWS.App or [µExpress app](https://github.com/dimdenGD/ultimate-express)) to `WebSocketServer` as option. See above for example.
 - ❌ server.shouldHandle(request)
 
 ### Client events
