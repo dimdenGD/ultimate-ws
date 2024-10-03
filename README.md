@@ -76,7 +76,7 @@ WIP
 
 ### Client events
 
-- ❌ close
+- ✅ close
 - ❌ error
 - ✅ message
 - ❌ ping
