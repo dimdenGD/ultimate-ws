@@ -77,10 +77,10 @@ WIP
 ### Client events
 
 - ✅ close
-- ❌ error
+- 🚧 error - uWS never throws errors
 - ✅ message
-- ❌ ping
-- ❌ pong
+- ✅ ping
+- ✅ pong
 - ❌ redirect
 - ❌ unexpected-response
 - ❌ upgrade

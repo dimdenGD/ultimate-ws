@@ -75,6 +75,12 @@ module.exports = class WebSocketServer extends EventEmitter {
             },
             message: (ws, message, isBinary) => {
                 ws.client.emit("message", Buffer.from(message), isBinary);
+            },
+            ping: (ws, message) => {
+                ws.client.emit("ping", Buffer.from(message));
+            },
+            pong: (ws, message) => {
+                ws.client.emit("pong", Buffer.from(message));
             }
         });
     }
