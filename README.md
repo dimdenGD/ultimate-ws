@@ -30,6 +30,8 @@ WIP
 - ❌ WebSocket.Receiver
 - ❌ WebSocket.Sender
 
+## Server
+
 ### Server options
 
 - ❌ autoPong
@@ -73,6 +75,10 @@ WIP
 - ✅ server.close(callback)
 - ❌ server.handleUpgrade(request, socket, head, callback) - this is unneeded. Just pass `server` (uWS.App or [µExpress app](https://github.com/dimdenGD/ultimate-express)) to `WebSocketServer` as option. See above for example.
 - ❌ server.shouldHandle(request)
+
+## Client
+
+This category only describes server clients. Client-side (`new ws.WebSocket`) just uses original `ws` module, and therefore supports everything.
 
 ### Client events
 
