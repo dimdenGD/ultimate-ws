@@ -1,4 +1,4 @@
-// must support client addEventListener
+// must support client addEventListener once
 
 const ws = require("ws");
 
@@ -7,7 +7,7 @@ const wss = new ws.WebSocketServer({ port: 8080 }, client);
 wss.on("connection", (ws, req) => {
     ws.addEventListener("message", (event) => {
         console.log(event.data);
-    });
+    }, { once: true });
 });
 
 function client() {

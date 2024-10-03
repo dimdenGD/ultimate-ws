@@ -106,6 +106,6 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ❌ client.protocol
 - ❌ client.resume()
 - ❌ client.readyState
-- ❌ client.removeEventListeners(type, listener)
+- ✅ client.removeEventListener(type, listener)
 - ❌ client.send(data, options, callback)
 - ❌ client.terminate()

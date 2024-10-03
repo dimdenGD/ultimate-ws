@@ -5,9 +5,11 @@ const ws = require("ws");
 const wss = new ws.WebSocketServer({ port: 8080 }, client);
 
 wss.on("connection", (ws, req) => {
-    ws.addEventListener("message", (event) => {
+    const fn = (event) => {
         console.log(event.data);
-    });
+    };
+    ws.addEventListener("message", fn);
+    ws.removeEventListener("message", fn);
 });
 
 function client() {

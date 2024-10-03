@@ -6,7 +6,6 @@ const wss = new ws.WebSocketServer({ port: 8080 }, cb);
 
 wss.on("close", () => {
     console.log("Closed server");
-    process.exit(0);
 });
 
 function cb() {

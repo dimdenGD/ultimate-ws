@@ -7,8 +7,6 @@ const wss = new ws.WebSocketServer({ port: 8080 }, client);
 wss.on("connection", (ws, req) => {
     ws.on("message", (data, isBinary) => {
         console.log(data, isBinary);
-
-        process.exit(0);
     });
 });
 
