@@ -2,10 +2,15 @@ const { EventEmitter } = require("tseep");
 const { EventTarget } = require("./event-target.js");
 
 class WebSocket extends EventEmitter {
-    constructor(ws) {
+    constructor(ws, req) {
         super();
         this.ws = ws;
+        this.req = req;
         this.binaryType = "nodebuffer";
+        this.incomingMessages = [];
+        this.incomingMessagesSize = 0;
+        this.isPaused = false;
+        this.maxPayload = 1024 * 1024 * 10; // 10 MB
     }
 
     get bufferedAmount() {
@@ -15,6 +20,28 @@ class WebSocket extends EventEmitter {
     close(code, reason) {
         this.ws.end(code, reason);
     }
+
+    pause() {
+        this.isPaused = true;
+    }
+
+    resume() {
+        this.isPaused = false;
+        this.incomingMessages.forEach(({ message, isBinary }) => {
+            this.emit("message", message, isBinary);
+        });
+        this.incomingMessages = [];
+        this.incomingMessagesSize = 0;
+    }
+
+    bufferIncomingMessage(message, isBinary) {
+        this.incomingMessages.push({message: this.parseMessage(message, isBinary), isBinary});
+        this.incomingMessagesSize += message.byteLength;
+        if(this.incomingMessagesSize > this.maxPayload) {
+            this.close(1009, "WS_ERR_UNSUPPORTED_MESSAGE_LENGTH");
+        }
+    }
+
 
     parseMessage(data, isBinary) {
         data = data.slice(0); // clone data as uWS destroys data after async callback

@@ -94,17 +94,17 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ client.binaryType
 - ✅ client.bufferedAmount
 - ✅ client.close(code, reason)
-- ❌ client.isPaused
+- ✅ client.isPaused
 - ❌ client.extensions
 - ❌ client.onclose
 - ❌ client.onerror
 - ❌ client.onmessage
 - ❌ client.onopen
-- ❌ client.pause()
+- ✅ client.pause()
 - ❌ client.ping(data, mask, callback)
 - ❌ client.pong(data, mask, callback)
 - ❌ client.protocol
-- ❌ client.resume()
+- ✅ client.resume()
 - ❌ client.readyState
 - ✅ client.removeEventListener(type, listener)
 - ❌ client.send(data, options, callback)

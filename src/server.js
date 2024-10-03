@@ -65,7 +65,7 @@ module.exports = class WebSocketServer extends EventEmitter {
                 );
             },
             open: (ws) => {
-                ws.client = new WebSocket(ws);
+                ws.client = new WebSocket(ws, ws.req);
                 if(this.clients) this.clients.add(ws.client);
                 this.emit("connection", ws.client, ws.req);
             },
@@ -74,6 +74,10 @@ module.exports = class WebSocketServer extends EventEmitter {
                 ws.client.emit("close");
             },
             message: (ws, message, isBinary) => {
+                if(ws.client.isPaused) {
+                    ws.client.bufferIncomingMessage(message, isBinary);
+                    return;
+                }
                 ws.client.emit("message", ws.client.parseMessage(message, isBinary), isBinary);
             },
             ping: (ws, message) => {
