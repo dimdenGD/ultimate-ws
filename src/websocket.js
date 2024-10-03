@@ -5,6 +5,26 @@ class WebSocket extends EventEmitter {
     constructor(ws) {
         super();
         this.ws = ws;
+        this.binaryType = "nodebuffer";
+    }
+
+    parseMessage(data, isBinary) {
+        if(!isBinary) {
+            return Buffer.from(data);
+        }
+
+        switch(this.binaryType) {
+            case "nodebuffer":
+                return Buffer.from(data);
+            case "arraybuffer":
+                return data;
+            case "blob":
+                return new Blob([Buffer.from(data)]);
+            case "fragments":
+                return [data];
+            default:
+                throw new Error(`Unsupported binary type: ${this.binaryType}`);
+        }
     }
 
     addEventListener(type, listener, options) {
