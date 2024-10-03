@@ -93,7 +93,7 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ client.addEventListener(type, listener, options)
 - ✅ client.binaryType
 - ✅ client.bufferedAmount
-- ❌ client.close(code, reason)
+- ✅ client.close(code, reason)
 - ❌ client.isPaused
 - ❌ client.extensions
 - ❌ client.onclose

@@ -12,6 +12,10 @@ class WebSocket extends EventEmitter {
         return this.ws.getBufferedAmount();
     }
 
+    close(code, reason) {
+        this.ws.end(code, reason);
+    }
+
     parseMessage(data, isBinary) {
         data = data.slice(0); // clone data as uWS destroys data after async callback
 
