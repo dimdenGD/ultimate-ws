@@ -96,10 +96,10 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ client.close(code, reason)
 - ✅ client.isPaused
 - ✅ client.extensions
-- ❌ client.onclose
-- ❌ client.onerror
-- ❌ client.onmessage
-- ❌ client.onopen
+- ✅ client.onclose
+- 🚧 client.onerror
+- ✅ client.onmessage
+- ✅ client.onopen
 - ✅ client.pause()
 - ❌ client.ping(data, mask, callback)
 - ❌ client.pong(data, mask, callback)

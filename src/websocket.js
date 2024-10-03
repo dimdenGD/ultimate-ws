@@ -2,6 +2,10 @@ const { EventEmitter } = require("tseep");
 const { EventTarget } = require("./event-target.js");
 
 class WebSocket extends EventEmitter {
+    #onmessage = null;
+    #onclose = null;
+    #onerror = null;
+    #onopen = null;
     constructor(ws, req, server) {
         super();
         this.ws = ws;
@@ -67,6 +71,54 @@ class WebSocket extends EventEmitter {
             default:
                 throw new Error(`Unsupported binary type: ${this.binaryType}`);
         }
+    }
+
+    get onmessage() {
+        return this.#onmessage;
+    }
+
+    set onmessage(listener) {
+        if(this.#onmessage) {
+            this.removeEventListener("message", this.#onmessage);
+        }
+        this.#onmessage = listener;
+        this.addEventListener("message", listener);
+    }
+
+    get onclose() {
+        return this.#onclose;
+    }
+
+    set onclose(listener) {
+        if(this.#onclose) {
+            this.removeEventListener("close", this.#onclose);
+        }
+        this.#onclose = listener;
+        this.addEventListener("close", listener);
+    }
+
+    get onerror() {
+        return this.#onerror;
+    }
+
+    set onerror(listener) {
+        if(this.#onerror) {
+            this.removeEventListener("error", this.#onerror);
+        }
+        this.#onerror = listener;
+        this.addEventListener("error", listener);
+    }
+
+    get onopen() {
+        return this.#onopen;
+    }
+
+    set onopen(listener) {
+        if(this.#onopen) {
+            this.removeEventListener("open", this.#onopen);
+        }
+        this.#onopen = listener;
+        this.addEventListener("open", listener);
     }
 
     addEventListener(type, listener, options) {
