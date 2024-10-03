@@ -61,8 +61,8 @@ WIP
 
 - ✅ close
 - ✅ connection
-- ❌ error
-- ❌ headers
+- 🚧 error - uWS never throws error
+- ✅ headers
 - ❌ listening
 - ❌ wsClientError
 

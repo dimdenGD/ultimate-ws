@@ -40,8 +40,18 @@ module.exports = class WebSocketServer extends EventEmitter {
     createHandler() {
         this.uwsApp.ws(this.options.path, {
             upgrade: (res, req, context) => {
+                const headers = [];
+                const msg = new IncomingMessage(this, req, res);
+                this.emit("headers", headers, msg);
+                if(headers.length) {
+                    res.writeStatus("101 Switching Protocols");
+                    for(const header of headers) {
+                        const [name, value] = header.split(": ");
+                        res.writeHeader(name, value);
+                    }
+                }
                 res.upgrade(
-                    { req: new IncomingMessage(this, req, res) },
+                    { req: msg },
                     req.getHeader('sec-websocket-key'),
                     req.getHeader('sec-websocket-protocol'),
                     req.getHeader('sec-websocket-extensions'),
