@@ -7,6 +7,7 @@ const fs = require("fs");
 const path = require("path");
 const test = require("node:test");
 const childProcess = require("node:child_process");
+const exec = require("util").promisify(childProcess.exec)
 const assert = require("node:assert");
 
 const testPath = path.join(__dirname, 'tests');
@@ -40,20 +41,28 @@ for (const testCategory of testCategories) {
             }
 
             await new Promise(resolve => {
-                test(testDescription, () => {
-                    process.stdout.write(testDescription + '...');
+                test(testDescription, async () => {
+                    let timeout;
+                    let timeoutFunc = (module) => {
+                        setTimeout(() => process.exit(1));
+                        throw `${module} timed out`;
+                    };
+
                     try {
-                        let wsOutput = childProcess.execSync(`node ${testPath}`).toString();
+                        timeout = setTimeout(() => timeoutFunc('ws'), 60000);
+                        let expressOutput = (await exec(`node ${testPath}`)).stdout;
+                        clearTimeout(timeout);
 
                         fs.writeFileSync(testPath, testCode.replace(`const ws = require("ws");`, `const ws = require("../../../src/index.js");`));
-                        let uWSOutput = childProcess.execSync(`node ${testPath}`).toString();
+                        timeout = setTimeout(() => timeoutFunc('ultimate-ws'), 60000)
+                        let uExpressOutput = (await exec(`node ${testPath}`)).stdout;
+                        clearTimeout(timeout);
 
-                        assert.strictEqual(uWSOutput, wsOutput);
-                        console.log('\x1b[32mOK\x1b[0m');
+                        assert.strictEqual(uExpressOutput, expressOutput);
                     } catch (error) {
-                        console.log('\x1b[31mFAIL\x1b[0m');
                         throw error;
                     } finally {
+                        clearTimeout(timeout);
                         fs.writeFileSync(testPath, testCode);
                         resolve();
                     }
