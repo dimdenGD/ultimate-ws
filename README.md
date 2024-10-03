@@ -59,7 +59,7 @@ WIP
 
 ### Server events
 
-- ❌ close
+- ✅ close
 - ✅ connection
 - ❌ error
 - ❌ headers
@@ -70,7 +70,7 @@ WIP
 
 - ❌ server.address()
 - ❌ server.clients
-- ❌ server.close(callback)
+- ✅ server.close(callback)
 - ❌ server.handleUpgrade(request, socket, head, callback)
 - ❌ server.shouldHandle(request)
 
@@ -78,7 +78,7 @@ WIP
 
 - ❌ close
 - ❌ error
-- ❌ message
+- ✅ message
 - ❌ ping
 - ❌ pong
 - ❌ redirect

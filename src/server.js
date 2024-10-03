@@ -82,4 +82,12 @@ module.exports = class WebSocketServer extends EventEmitter {
             if(callback) callback(this.port);
         });
     }
+
+    close(callback) {
+        this.uwsApp.close();
+        process.nextTick(() => {
+            this.emit("close");
+            if(callback) callback();
+        });
+    }
 }
