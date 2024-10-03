@@ -75,15 +75,7 @@ module.exports = class WebSocketServer extends EventEmitter {
             port = 0;
         }
         let fn = 'listen';
-        if(typeof port !== 'number') {
-            if(!isNaN(Number(port))) {
-                port = Number(port);
-            } else {
-                fn = 'listen_unix';
-            }
-        }
-        this.listenCalled = true;
-        this.uwsApp[fn](port, socket => {
+        const onListening = (socket) => {
             if(!socket) {
                 let err = new Error('Failed to listen on port ' + port + '. No permission or address already in use.');
                 throw err;
@@ -91,7 +83,19 @@ module.exports = class WebSocketServer extends EventEmitter {
             this.port = uWS.us_socket_local_port(socket);
             this.emit("listening");
             if(callback) callback(this.port);
-        });
+        }
+        let args = [port];
+        if(typeof port !== 'number') {
+            if(!isNaN(Number(port))) {
+                port = Number(port);
+                args.push(onListening);
+            } else {
+                fn = 'listen_unix';
+                args.unshift(onListening);
+            }
+        }
+        this.listenCalled = true;
+        this.uwsApp[fn](...args);
     }
 
     close(callback) {
