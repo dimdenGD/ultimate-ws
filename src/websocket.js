@@ -9,6 +9,8 @@ class WebSocket extends EventEmitter {
     }
 
     parseMessage(data, isBinary) {
+        data = data.slice(0); // clone data as uWS destroys data after async callback
+
         if(!isBinary) {
             return Buffer.from(data);
         }
@@ -19,9 +21,9 @@ class WebSocket extends EventEmitter {
             case "arraybuffer":
                 return data;
             case "blob":
-                return new Blob([Buffer.from(data)]);
+                return new Blob([data]);
             case "fragments":
-                return [data];
+                return [Buffer.from(data)];
             default:
                 throw new Error(`Unsupported binary type: ${this.binaryType}`);
         }
