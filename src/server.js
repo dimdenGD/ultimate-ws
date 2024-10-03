@@ -74,8 +74,7 @@ module.exports = class WebSocketServer extends EventEmitter {
                 ws.client.emit("close");
             },
             message: (ws, message, isBinary) => {
-                const data = isBinary ? message : Buffer.from(message);
-                ws.client.emit("message", data, isBinary);
+                ws.client.emit("message", Buffer.from(message), isBinary);
             }
         });
     }

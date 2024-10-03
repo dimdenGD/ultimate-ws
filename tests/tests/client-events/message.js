@@ -5,9 +5,8 @@ const ws = require("ws");
 const wss = new ws.WebSocketServer({ port: 8080 }, client);
 
 wss.on("connection", (ws, req) => {
-    ws.on("message", event => {
-        let data = event.toString();
-        console.log(data);
+    ws.on("message", (data, isBinary) => {
+        console.log(data, isBinary);
 
         process.exit(0);
     });
@@ -19,5 +18,8 @@ function client() {
     c.on('open', () => {
         c.send("Hello from client");
         c.send(new TextEncoder().encode("Binary hello from client"));
+        setTimeout(() => {
+            process.exit(0);
+        }, 100);
     });
 }
