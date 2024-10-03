@@ -13,13 +13,19 @@ module.exports = class WebSocketServer extends EventEmitter {
         }
         this.options = options;
         this.listenCalled = false;
-        this.clients = new Set();
         this.clientData = {};
         if(!options.path) {
             options.path = "/*";
         }
         if(!options?.uwsOptions) {
             options.uwsOptions = {};
+        }
+        if(typeof options.clientTracking === 'undefined') {
+            options.clientTracking = true;
+        }
+
+        if(options.clientTracking) {
+            this.clients = new Set();
         }
 
         if(!options.server) {
@@ -60,11 +66,11 @@ module.exports = class WebSocketServer extends EventEmitter {
             },
             open: (ws) => {
                 ws.client = new WebSocket(ws);
-                this.clients.add(ws.client);
+                if(this.clients) this.clients.add(ws.client);
                 this.emit("connection", ws.client, ws.req);
             },
             close: (ws) => {
-                this.clients.delete(ws.client);
+                if(this.clients) this.clients.delete(ws.client);
             },
             message: (ws, message, isBinary) => {
                 const data = isBinary ? message : Buffer.from(message);

@@ -35,7 +35,7 @@ WIP
 - ❌ autoPong
 - ❌ allowSynchronousEvents 
 - ❌ backlog
-- ❌ clientTracking
+- ✅ clientTracking
 - ❌ handleProtocols
 - ❌ host
 - ❌ maxPayload
