@@ -2,6 +2,7 @@ module.exports = class IncomingMessage {
     #rawHeadersEntries = [];
     #cachedHeaders = null;
     #cachedDistinctHeaders = null;
+    #cachedParsedIp = null;
     constructor(app, req, res) {
         this.app = app;
         this.req = req;
@@ -12,15 +13,37 @@ module.exports = class IncomingMessage {
         }
         this.url = req.getUrl() + this.urlQuery;
         this.method = req.getMethod();
-        this.rawIp = Buffer.from(this.res.getRemoteAddressAsText()).toString();
+        this.rawIp = res.getRemoteAddress();
         req.forEach((key, value) => {
             this.#rawHeadersEntries.push([key, value]);
         });
     }
 
+    get parsedIp() {
+        if(this.#cachedParsedIp) {
+            return this.#cachedParsedIp;
+        }
+        let ip = '';
+        if(this.rawIp.byteLength === 4) {
+            // ipv4
+            ip = this.rawIp.join('.');
+        } else {
+            // ipv6
+            const dv = new DataView(this.rawIp);
+            for(let i = 0; i < 8; i++) {
+                ip += dv.getUint16(i * 2).toString(16).padStart(4, '0');
+                if(i < 7) {
+                    ip += ':';
+                }
+            }
+        }
+        this.#cachedParsedIp = ip;
+        return ip;
+    }
+
     get connection() {
         return {
-            remoteAddress: this.rawIp,
+            remoteAddress: this.parsedIp,
             localPort: this.app.port,
             remotePort: this.app.port,
             encrypted: this.app.ssl,
