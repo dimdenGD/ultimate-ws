@@ -69,6 +69,10 @@ module.exports = class WebSocketServer extends EventEmitter {
         });
     }
 
+    address() {
+        return { address: '::', family: 'IPv6', port: this.port };
+    }
+
     listen(port, callback) {
         if(!callback && typeof port === 'function') {
             callback = port;
@@ -93,6 +97,8 @@ module.exports = class WebSocketServer extends EventEmitter {
                 fn = 'listen_unix';
                 args.unshift(onListening);
             }
+        } else {
+            args.push(onListening);
         }
         this.listenCalled = true;
         this.uwsApp[fn](...args);

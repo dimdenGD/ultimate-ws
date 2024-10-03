@@ -68,7 +68,7 @@ WIP
 
 ### Server properties
 
-- ❌ server.address()
+- ✅ server.address()
 - ❌ server.clients
 - ✅ server.close(callback)
 - ❌ server.handleUpgrade(request, socket, head, callback)
