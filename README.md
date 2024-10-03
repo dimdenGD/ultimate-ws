@@ -16,7 +16,7 @@ WIP
 🚧 - Partial support (some options are not supported)  
 ❌ - Not supported  
 
-### WebSocket
+#### WebSocket
 
 - ✅ WebSocket
 - ✅ WebSocket.Server
@@ -30,9 +30,9 @@ WIP
 - ❌ WebSocket.Receiver
 - ❌ WebSocket.Sender
 
-## Server
+### Server
 
-### Server options
+#### Server options
 
 - ❌ autoPong
 - ❌ allowSynchronousEvents 
@@ -59,7 +59,7 @@ WIP
 - ❌ WebSocket
 - ✅ callback
 
-### Server events
+#### Server events
 
 - ✅ close
 - ✅ connection
@@ -68,7 +68,7 @@ WIP
 - 🚧 error - uWS never throws errors
 - 🚧 wsClientError - uWS never throws errors
 
-### Server properties
+#### Server properties
 
 - ✅ server.address()
 - ✅ server.clients
@@ -76,11 +76,11 @@ WIP
 - ❌ server.handleUpgrade(request, socket, head, callback) - this is unneeded. Just pass `server` (uWS.App or [µExpress app](https://github.com/dimdenGD/ultimate-express)) to `WebSocketServer` as option. See above for example.
 - ❌ server.shouldHandle(request)
 
-## Client
+### Client
 
 This category only describes server clients. Client-side (`new ws.WebSocket`) just uses original `ws` module, and therefore supports everything.
 
-### Client events
+#### Client events
 
 - ✅ close
 - ✅ message
@@ -88,7 +88,7 @@ This category only describes server clients. Client-side (`new ws.WebSocket`) ju
 - ✅ pong
 - 🚧 error - uWS never throws errors
 
-### Client properties
+#### Client properties
 
 - ❌ client.addEventListener(type, listener, options)
 - ❌ client.binaryType
