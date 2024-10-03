@@ -78,7 +78,7 @@ WIP
 
 ### Client
 
-This category only describes server clients. Client-side (`new ws.WebSocket`) just uses original `ws` module, and therefore supports everything.
+This category only describes server clients. Client-side (`new ws.WebSocket()`) just uses original `ws` module, and therefore supports everything.
 
 #### Client events
 
@@ -90,7 +90,7 @@ This category only describes server clients. Client-side (`new ws.WebSocket`) ju
 
 #### Client properties
 
-- ❌ client.addEventListener(type, listener, options)
+- ✅ client.addEventListener(type, listener, options)
 - ❌ client.binaryType
 - ❌ client.bufferedAmount
 - ❌ client.close(code, reason)
