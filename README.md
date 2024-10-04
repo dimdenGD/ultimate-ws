@@ -100,6 +100,22 @@ const wsServer = new WebSocketServer({ server: server });
 server.listen(3000);
 ```
 
+## HTTPS
+
+Ultimate WS supports HTTPS. You can pass `uwsOptions` to `WebSocketServer` to configure it:
+```js
+const { WebSocketServer } = require("ultimate-ws");
+
+const wsServer = new WebSocketServer({
+    port: 3000,
+    uwsOptions: {
+        // https://unetworking.github.io/uWebSockets.js/generated/interfaces/AppOptions.html
+        key_file_name: "path/to/key.pem",
+        cert_file_name: "path/to/cert.pem",
+    }
+});
+```
+
 ## Compatibility
 
 ✅ - Full support (all features and options are supported)  
