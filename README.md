@@ -37,7 +37,7 @@ WIP
 - ❌ backlog
 - ✅ clientTracking
 - ✅ handleProtocols
-- ❌ host
+- ✅ host
 - ❌ maxPayload
 - ❌ noServer
 - ✅ path

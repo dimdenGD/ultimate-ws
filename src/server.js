@@ -52,6 +52,12 @@ module.exports = class WebSocketServer extends EventEmitter {
         this.uwsApp.ws(this.options.path, {
             sendPingsAutomatically: this.options.autoPong,
             upgrade: (res, req, context) => {
+                if(this.options.host) {
+                    const host = req.getHeader('host');
+                    if(host !== this.options.host) {
+                        return req.setYield(true);
+                    }
+                }
                 const headers = [];
                 const msg = new IncomingMessage(this, req, res);
                 this.emit("headers", headers, msg);
@@ -110,7 +116,8 @@ module.exports = class WebSocketServer extends EventEmitter {
     }
 
     address() {
-        return { address: '::', family: 'IPv6', port: this.port };
+        const host = this.options.host ?? '::';
+        return { address: host, family: host.includes(':') ? 'IPv6' : 'IPv4', port: this.port };
     }
 
     listen(port, callback) {
@@ -133,12 +140,18 @@ module.exports = class WebSocketServer extends EventEmitter {
             if(!isNaN(Number(port))) {
                 port = Number(port);
                 args.push(onListening);
+                if(this.options.host) {
+                    args.unshift(this.options.host);
+                }
             } else {
                 fn = 'listen_unix';
                 args.unshift(onListening);
             }
         } else {
             args.push(onListening);
+            if(this.options.host) {
+                args.unshift(this.options.host);
+            }
         }
         this.listenCalled = true;
         this.uwsApp[fn](...args);
