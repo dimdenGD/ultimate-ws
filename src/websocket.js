@@ -1,5 +1,6 @@
 const { EventEmitter } = require("tseep");
 const { EventTarget } = require("./event-target.js");
+const WS = require("ws");
 
 class WebSocket extends EventEmitter {
     #onmessage = null;
@@ -17,9 +18,14 @@ class WebSocket extends EventEmitter {
         this.isPaused = false;
         this.maxPayload = 1024 * 1024 * 100; // 100 MB
         this.extensions = '';
+        this.readyState = WS.OPEN;
         if(this.server.options.perMessageDeflate && req.headers["sec-websocket-extensions"] && req.headers["sec-websocket-extensions"].includes("permessage-deflate")) {
             this.extensions = "permessage-deflate";
         }
+        this.OPEN = WS.OPEN;
+        this.CLOSING = WS.CLOSING;
+        this.CLOSED = WS.CLOSED;
+        this.CONNECTING = WS.CONNECTING;
     }
 
     get bufferedAmount() {

@@ -13,7 +13,7 @@ It's useful when:
 WIP
 
 ✅ - Full support (all features and options are supported)  
-🚧 - Partial support (some options are not supported)  
+🚧 - Partial support (some features are not supported)  
 ❌ - Not supported  
 
 #### WebSocket
@@ -105,7 +105,7 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ❌ client.pong(data, mask, callback)
 - ✅ client.protocol
 - ✅ client.resume()
-- ❌ client.readyState
+- ✅ client.readyState
 - ✅ client.removeEventListener(type, listener)
 - ❌ client.send(data, options, callback)
 - ❌ client.terminate()

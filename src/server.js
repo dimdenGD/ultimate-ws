@@ -2,6 +2,8 @@ const uWS = require("uWebSockets.js");
 const { EventEmitter } = require("tseep");
 const IncomingMessage = require("./request.js");
 const WebSocket = require("./websocket.js");
+const WS = require("ws");
+
 module.exports = class WebSocketServer extends EventEmitter {
     constructor(options = {}, callback) {
         super();
@@ -70,6 +72,7 @@ module.exports = class WebSocketServer extends EventEmitter {
                 this.emit("connection", ws.client, ws.req);
             },
             close: (ws) => {
+                ws.client.readyState = WS.CLOSED;
                 if(this.clients) this.clients.delete(ws.client);
                 ws.client.emit("close");
             },
