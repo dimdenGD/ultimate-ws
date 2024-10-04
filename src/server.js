@@ -31,6 +31,9 @@ module.exports = class WebSocketServer extends EventEmitter {
         if(typeof options.maxPayload === 'undefined') {
             options.maxPayload = 104857600; // 100mb
         }
+        if(typeof options.WebSocket === 'undefined') {
+            options.WebSocket = WebSocket;
+        }
 
         if(options.clientTracking) {
             this.clients = new Set();
@@ -127,7 +130,7 @@ module.exports = class WebSocketServer extends EventEmitter {
                 });
             },
             open: (ws) => {
-                ws.client = new WebSocket(ws, ws.req, this);
+                ws.client = new this.options.WebSocket(ws, ws.req, this);
                 if(this.clients) this.clients.add(ws.client);
                 this.emit("connection", ws.client, ws.req);
             },

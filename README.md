@@ -39,7 +39,7 @@ WIP
 - ✅ handleProtocols
 - ✅ host
 - ✅ maxPayload
-- ❌ noServer
+- ❌ noServer - see example above for alternative
 - ✅ path
 - 🚧 perMessageDeflate - pass `true` for `DEDICATED_COMPRESSOR_4KB | DEDICATED_DECOMPRESSOR` or your own [`CompressOptions`](https://unetworking.github.io/uWebSockets.js/generated/types/CompressOptions.html) number.
 - - ❌ serverNoContextTakeover
@@ -54,7 +54,7 @@ WIP
 - ✅ server
 - ❌ skipUTF8Validation 
 - ✅ verifyClient
-- ❌ WebSocket
+- ✅ WebSocket
 - ✅ callback
 
 #### Server events
