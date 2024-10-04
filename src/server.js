@@ -55,6 +55,8 @@ module.exports = class WebSocketServer extends EventEmitter {
         this.uwsApp.ws(this.options.path, {
             sendPingsAutomatically: this.options.autoPong,
             maxPayloadLength: this.options.maxPayload,
+            compression: typeof this.options.perMessageDeflate === 'boolean' && this.options.perMessageDeflate ? 
+                (uWS.DEDICATED_COMPRESSOR_3KB | uWS.DEDICATED_DECOMPRESSOR) : this.options.perMessageDeflate,
             upgrade: (res, req, context) => {
                 if(this.options.host) {
                     const host = req.getHeader('host');

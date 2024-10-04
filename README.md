@@ -41,7 +41,7 @@ WIP
 - ✅ maxPayload
 - ❌ noServer
 - ✅ path
-- ❌ perMessageDeflate
+- 🚧 perMessageDeflate - pass `true` for `DEDICATED_COMPRESSOR_4KB | DEDICATED_DECOMPRESSOR` or your own [`CompressOptions`](https://unetworking.github.io/uWebSockets.js/generated/types/CompressOptions.html) number.
 - - ❌ serverNoContextTakeover
 - - ❌ clientNoContextTakeover
 - - ❌ serverMaxWindowBits
