@@ -158,10 +158,10 @@ Below is the list of supported features and their compatibility:
 - ✅ verifyClient
 - ✅ WebSocket
 - ✅ callback
-- ✅ maxBackpressure (uWS only, default `maxPayload`)
-- ✅ idleTimeout (uWS only, default 120)
-- ✅ maxLifetime (uWS only, default 0)
-- ✅ closeOnBackpressureLimit (uWS only, default `false`)
+- ✅ maxBackpressure (default `maxPayload`)
+- ✅ idleTimeout (default 120)
+- ✅ maxLifetime (default 0)
+- ✅ closeOnBackpressureLimit (default `false`)
 
 #### Server events
 
