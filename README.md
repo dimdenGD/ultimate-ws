@@ -161,6 +161,7 @@ Below is the list of supported features and their compatibility:
 - ✅ maxBackpressure (uWS only, default `maxPayload`)
 - ✅ idleTimeout (uWS only, default 120)
 - ✅ maxLifetime (uWS only, default 0)
+- ✅ closeOnBackpressureLimit (uWS only, default `false`)
 
 #### Server events
 

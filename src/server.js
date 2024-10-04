@@ -50,6 +50,9 @@ module.exports = class WebSocketServer extends EventEmitter {
         if(typeof options.WebSocket === 'undefined') {
             options.WebSocket = WebSocket;
         }
+        if(typeof options.closeOnBackpressureLimit === 'undefined') {
+            options.closeOnBackpressureLimit = false;
+        }
 
         if(options.clientTracking) {
             this.clients = new Set();
@@ -77,6 +80,7 @@ module.exports = class WebSocketServer extends EventEmitter {
             maxBackpressure: this.options.maxBackpressure ?? this.options.maxPayload,
             idleTimeout: this.options.idleTimeout ?? 120,
             maxLifetime: this.options.maxLifetime ?? 0,
+            closeOnBackpressureLimit: this.options.closeOnBackpressureLimit,
             compression: typeof this.options.perMessageDeflate !== 'number' && this.options.perMessageDeflate ? 
                 (uWS.DEDICATED_COMPRESSOR_4KB | uWS.DEDICATED_DECOMPRESSOR) : this.options.perMessageDeflate,
             upgrade: async (res, req, context) => {
