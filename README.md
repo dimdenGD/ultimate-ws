@@ -41,15 +41,7 @@ WIP
 - ✅ maxPayload
 - ❌ noServer - see example above for alternative
 - ✅ path
-- 🚧 perMessageDeflate - pass `true` for `DEDICATED_COMPRESSOR_4KB | DEDICATED_DECOMPRESSOR` or your own [`CompressOptions`](https://unetworking.github.io/uWebSockets.js/generated/types/CompressOptions.html) number.
-- - ❌ serverNoContextTakeover
-- - ❌ clientNoContextTakeover
-- - ❌ serverMaxWindowBits
-- - ❌ clientMaxWindowBits
-- - ❌ zlibDeflateOptions
-- - ❌ zlibInflateOptions
-- - ❌ threshold
-- - ❌ concurrencyLimit
+- 🚧 perMessageDeflate - pass `true` for `DEDICATED_COMPRESSOR_4KB | DEDICATED_DECOMPRESSOR` or your own [`CompressOptions`](https://unetworking.github.io/uWebSockets.js/generated/types/CompressOptions.html) number. Options are not supported and if this is an object it will be treated as `true`.
 - ✅ port
 - ✅ server
 - ❌ skipUTF8Validation 
