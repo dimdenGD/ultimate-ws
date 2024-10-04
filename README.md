@@ -5,12 +5,19 @@ The *Ultimate* WebSocket server. Ultimate WS is an extremely fast, drop-in repla
 It's useful when:
 - You want same API as `ws` module, but the speed of `uWebSockets.js`
 - You want to convert your Express app with `ws` to use [Ultimate Express](https://github.com/dimdenGD/ultimate-express) instead
-  
-`npm install ultimate-ws` -> replace `ws` with `ultimate-ws` -> done  
-  
+    
 [![Node.js >= 16.0.0](https://img.shields.io/badge/Node.js-%3E=16.0.0-green)](https://nodejs.org)
 [![npm](https://img.shields.io/npm/v/ultimate-ws?label=last+version)](https://npmjs.com/package/ultimate-ws)
 [![Patreon](https://img.shields.io/badge/donate-Patreon-orange)](https://patreon.com/dimdendev)
+
+## Installation
+
+1.
+```bash
+npm install ultimate-ws
+```
+2. Replace `ws` with `ultimate-ws` in your code
+3. Check compatibility and differences below
 
 ## Performance
 
@@ -21,6 +28,74 @@ Echo test using `artillery` (duration: 20, arrivalRate: 10000):
 | `ws`              | 2709/sec      | 2535ms              | 127ms                 |
 | **`ultimate-ws`** | **10046/sec** | **45ms**            | **12ms**              |
 
+## Usage
+
+### Use with [Ultimate Express](https://github.com/dimdenGD/ultimate-express)
+
+Since you don't create `http` server for `ws` or `express`, you can't really use `server.on("upgrade", ...)` to upgrade to Ultimate WS. Instead, you can pass Ultimate Express or uWS app to `WebSocketServer` as option. So **instead** of doing this:
+```js
+const http = require("http");
+const express = require("express");
+const ws = require("ws");
+
+const app = express();
+const wsServer = new ws.WebSocketServer({ noServer: true });
+
+app.get("/", (_, res) => res.send("Hello, world!"));
+
+
+const server = http.createServer(app);
+server.on("upgrade", (request, socket, head) => {
+    const { pathname } = url.parse(request.url);
+    if(pathname !== "/wspath") return request.socket.destroy();
+    
+    wsServer.handleUpgrade(request, socket, head, (ws) => {
+        wsServer.emit("connection", ws, request);
+    });
+});
+
+server.listen(3000);
+```
+You need to do this:
+```js
+const express = require("ultimate-express");
+const app = express();
+
+app.get("/", (_, res) => res.send("Hello, world!"));
+
+const wsServer = new WebSocketServer({ server: app, path: "/wspath" }); // path is optional
+
+app.listen(3000);
+```
+
+### Stand-alone usage
+
+If you want to use Ultimate WS without any http server, you can do this:
+```js
+const { WebSocketServer } = require("ultimate-ws");
+
+const wsServer = new WebSocketServer({ port: 3000 });
+
+// your usual `ws` server code
+wsServer.on("connection", (socket) => {
+    socket.on("message", (message) => {
+        socket.send(message);
+    });
+});
+```
+
+### Use with existing uWS server
+
+You can also pass existing uWS server to `WebSocketServer`:
+```js
+const { WebSocketServer } = require("ultimate-ws");
+const uws = require("uWebSockets.js");
+
+const server = uws.App();
+const wsServer = new WebSocketServer({ server: server });
+
+server.listen(3000);
+```
 
 ## Compatibility
 
