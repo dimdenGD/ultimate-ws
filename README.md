@@ -32,7 +32,7 @@ WIP
 
 #### Server options
 
-- ✅ autoPong
+- ✅ autoPong (uWS: sendPingsAutomatically)
 - ❌ allowSynchronousEvents 
 - ❌ backlog
 - ✅ clientTracking
@@ -48,6 +48,9 @@ WIP
 - ✅ verifyClient
 - ✅ WebSocket
 - ✅ callback
+- ✅ maxBackpressure (uWS only, default `maxPayload`)
+- ✅ idleTimeout (uWS only, default 120)
+- ✅ maxLifetime (uWS only, default 0)
 
 #### Server events
 
