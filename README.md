@@ -10,8 +10,6 @@ It's useful when:
 
 ## Compatibility
 
-WIP
-
 ✅ - Full support (all features and options are supported)  
 🚧 - Partial support (some features are not supported)  
 ❌ - Not supported  
@@ -32,13 +30,13 @@ WIP
 
 #### Server options
 
-- ✅ autoPong (uWS: sendPingsAutomatically)
+- ✅ autoPong (uWS: sendPingsAutomatically, default `true`)
 - ❌ allowSynchronousEvents 
 - ❌ backlog
 - ✅ clientTracking
 - ✅ handleProtocols
 - ✅ host
-- ✅ maxPayload
+- ✅ maxPayload (default 100mb)
 - ❌ noServer - see example above for alternative
 - ✅ path
 - 🚧 perMessageDeflate - pass `true` for `DEDICATED_COMPRESSOR_4KB | DEDICATED_DECOMPRESSOR` or your own [`CompressOptions`](https://unetworking.github.io/uWebSockets.js/generated/types/CompressOptions.html) number. Options are not supported and if this is an object it will be treated as `true`.
