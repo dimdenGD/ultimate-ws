@@ -118,8 +118,8 @@ const wsServer = new WebSocketServer({
 
 ## Compatibility
 
-All commonly used `ws` features are supported. Almost all ws servers should work, as it's built with maximum compatibility in mind.  
-Please refer to [ws module documentation](https://github.com/websockets/ws) for API reference.  
+All commonly used `ws` features are supported. Almost all ws servers should work, as it's built with maximum compatibility in mind.
+Please refer to [ws module documentation](https://github.com/websockets/ws) for API reference.
 Below is the list of supported features and their compatibility:  
 
 ✅ - Full support (all features and options are supported)  
