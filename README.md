@@ -101,7 +101,7 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ client.onmessage
 - ✅ client.onopen
 - ✅ client.pause()
-- ❌ client.ping(data, mask, callback)
+- 🚧 client.ping()
 - ❌ client.pong(data, mask, callback)
 - ❌ client.protocol
 - ✅ client.resume()

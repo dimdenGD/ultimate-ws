@@ -26,6 +26,15 @@ class WebSocket extends EventEmitter {
         return this.ws.getBufferedAmount();
     }
 
+    ping() {
+        this.ws.ping();
+    }
+
+    pong() {
+        // unsupported by uws
+        console.warn("pong is not supported by uws, as its handled automatically");
+    }
+
     close(code, reason) {
         this.ws.end(code, reason);
     }
@@ -44,11 +53,11 @@ class WebSocket extends EventEmitter {
     }
 
     bufferIncomingMessage(message, isBinary) {
-        this.incomingMessages.push({message: this.parseMessage(message, isBinary), isBinary});
         this.incomingMessagesSize += message.byteLength;
         if(this.incomingMessagesSize > this.maxPayload) {
             this.close(1009, "WS_ERR_UNSUPPORTED_MESSAGE_LENGTH");
         }
+        this.incomingMessages.push({message: this.parseMessage(message, isBinary), isBinary});
     }
 
 
