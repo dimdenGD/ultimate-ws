@@ -26,7 +26,7 @@ WIP
 - ✅ WebSocket.OPEN
 - ✅ WebSocket.CLOSING
 - ✅ WebSocket.CLOSED
-- ❌ WebSocket.createWebSocketStream
+- ✅ WebSocket.createWebSocketStream
 
 ### Server
 
