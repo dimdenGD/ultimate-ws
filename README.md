@@ -107,9 +107,9 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ client.resume()
 - ✅ client.readyState
 - ✅ client.removeEventListener(type, listener)
-- ❌ client.send(data, options, callback)
-- - ❌ options.binary
-- - ❌ options.compress
+- 🚧 client.send(data, options, callback) - returns 1 for success, 2 for dropped due to backpressure limit, 0 for built up backpressure that will drain over time. Callback will only get error if it returns 2.
+- - ✅ options.binary
+- - ✅ options.compress
 - - ❌ options.fin
 - - ❌ options.mask
 - ✅ client.terminate()
