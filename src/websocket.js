@@ -56,7 +56,7 @@ class WebSocket extends EventEmitter {
         }
         if(options.compress === undefined) options.compress = this.server.options.perMessageDeflate;
         const res = this.ws.send(data, options.binary, options.compress);
-        if(callback) callback(res === 2 ? new Error("Dropped due to backpressure limit") : undefined);
+        if(callback) callback(res === 2 ? new Error("Dropped due to backpressure limit") : null);
         return res;
     }
     
