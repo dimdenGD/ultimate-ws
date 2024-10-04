@@ -5,8 +5,12 @@ The *Ultimate* WebSocket server. Ultimate WS is a faster replacement for `ws` mo
 It's useful when:
 - You want same API as `ws` module, but the speed of `uWebSockets.js`
 - You want to convert your Express app with `ws` to use [Ultimate Express](https://github.com/dimdenGD/ultimate-express) instead
-
-`npm install ultimate-ws`
+  
+`npm install ultimate-ws` -> replace `ws` with `ultimate-ws` -> done  
+  
+[![Node.js >= 16.0.0](https://img.shields.io/badge/Node.js-%3E=16.0.0-green)](https://nodejs.org)
+[![npm](https://img.shields.io/npm/v/ultimate-ws?label=last+version)](https://npmjs.com/package/ultimate-ws)
+[![Patreon](https://img.shields.io/badge/donate-Patreon-orange)](https://patreon.com/dimdendev)
 
 ## Compatibility
 
