@@ -38,7 +38,7 @@ WIP
 - ✅ clientTracking
 - ✅ handleProtocols
 - ✅ host
-- ❌ maxPayload
+- ✅ maxPayload
 - ❌ noServer
 - ✅ path
 - ❌ perMessageDeflate

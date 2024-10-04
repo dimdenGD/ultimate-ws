@@ -28,6 +28,9 @@ module.exports = class WebSocketServer extends EventEmitter {
         if(typeof options.autoPong === 'undefined') {
             options.autoPong = true;
         }
+        if(typeof options.maxPayload === 'undefined') {
+            options.maxPayload = 104857600; // 100mb
+        }
 
         if(options.clientTracking) {
             this.clients = new Set();
@@ -51,6 +54,7 @@ module.exports = class WebSocketServer extends EventEmitter {
     createHandler() {
         this.uwsApp.ws(this.options.path, {
             sendPingsAutomatically: this.options.autoPong,
+            maxPayloadLength: this.options.maxPayload,
             upgrade: (res, req, context) => {
                 if(this.options.host) {
                     const host = req.getHeader('host');
