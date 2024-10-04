@@ -112,4 +112,4 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - - ❌ options.compress
 - - ❌ options.fin
 - - ❌ options.mask
-- ❌ client.terminate()
+- ✅ client.terminate()

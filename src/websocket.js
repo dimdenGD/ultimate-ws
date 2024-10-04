@@ -48,6 +48,10 @@ class WebSocket extends EventEmitter {
     close(code, reason) {
         this.ws.end(code, reason);
     }
+    
+    terminate() {
+        this.ws.close();
+    }
 
     pause() {
         this.isPaused = true;
