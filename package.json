@@ -39,8 +39,5 @@
   },
   "devDependencies": {
     "exit-hook": "^2.2.1"
-  },
-  "optionalDependencies": {
-    "utf-8-validate": "^6.0.4"
   }
 }

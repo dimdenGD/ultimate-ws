@@ -12,16 +12,6 @@ It's useful when:
 [![npm](https://img.shields.io/npm/v/ultimate-ws?label=last+version)](https://npmjs.com/package/ultimate-ws)
 [![Patreon](https://img.shields.io/badge/donate-Patreon-orange)](https://patreon.com/dimdendev)
 
-## Installation
-
-```bash
-npm install ultimate-ws
-```
-If you're using Node.js =<19.x, you can install `utf-8-validate` package for more performant UTF-8 validation:
-
-```bash
-npm install utf-8-validate
-```
 
 ## Compatibility
 
