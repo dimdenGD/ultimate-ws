@@ -57,7 +57,7 @@ module.exports = class WebSocketServer extends EventEmitter {
             maxPayloadLength: this.options.maxPayload,
             compression: typeof this.options.perMessageDeflate === 'boolean' && this.options.perMessageDeflate ? 
                 (uWS.DEDICATED_COMPRESSOR_4KB | uWS.DEDICATED_DECOMPRESSOR) : this.options.perMessageDeflate,
-            upgrade: (res, req, context) => {
+            upgrade: async (res, req, context) => {
                 if(this.options.host) {
                     const host = req.getHeader('host');
                     if(host !== this.options.host) {
@@ -66,28 +66,65 @@ module.exports = class WebSocketServer extends EventEmitter {
                 }
                 const headers = [];
                 const msg = new IncomingMessage(this, req, res);
-                this.emit("headers", headers, msg);
-                if(headers.length || this.options.handleProtocols) {
-                    res.writeStatus("101 Switching Protocols");
-                }
-                if(headers.length) {
-                    for(const header of headers) {
-                        const [name, value] = header.split(": ");
-                        res.writeHeader(name, value);
+
+                if(this.options.verifyClient) {
+                    if(this.options.verifyClient.length === 1) {
+                        const result = this.options.verifyClient({
+                            origin: req.getHeader('origin'),
+                            req: msg,
+                            secure: this.ssl,
+                        });
+                        if(!result) {
+                            return res.writeStatus("401 Unauthorized").end();
+                        }
+                    } else {
+                        const result = await new Promise((resolve, reject) => {
+                            this.options.verifyClient({
+                                origin: req.getHeader('origin'),
+                                req: msg,
+                                secure: this.ssl,
+                            }, (result, code, name, headers = {}) => {
+                                if(!result) {
+                                    res.writeStatus(`${code} ${name}`);
+                                    for(const header in headers) {
+                                        res.writeHeader(header, headers[header]);
+                                    }
+                                    res.end();
+                                    return resolve(false);
+                                }
+                                resolve(true);
+                            });
+                        });
+                        if(!result) {
+                            return;
+                        }
                     }
                 }
-                let protocol;
-                if(this.options.handleProtocols) {
-                    const protocols = new Set(req.getHeader('sec-websocket-protocol').split(","));
-                    protocol = this.options.handleProtocols(protocols, msg);
-                }
-                res.upgrade(
-                    { req: msg },
-                    req.getHeader('sec-websocket-key'),
-                    protocol ?? req.getHeader('sec-websocket-protocol'),
-                    req.getHeader('sec-websocket-extensions'),
-                    context
-                );
+
+                this.emit("headers", headers, msg);
+                res.cork(() => {
+                    if(headers.length || this.options.handleProtocols) {
+                        res.writeStatus("101 Switching Protocols");
+                    }
+                    if(headers.length) {
+                        for(const header of headers) {
+                            const [name, value] = header.split(": ");
+                            res.writeHeader(name, value);
+                        }
+                    }
+                    let protocol;
+                    if(this.options.handleProtocols) {
+                        const protocols = new Set(req.getHeader('sec-websocket-protocol').split(","));
+                        protocol = this.options.handleProtocols(protocols, msg);
+                    }
+                    res.upgrade(
+                        { req: msg },
+                        req.getHeader('sec-websocket-key'),
+                        protocol ?? req.getHeader('sec-websocket-protocol'),
+                        req.getHeader('sec-websocket-extensions'),
+                        context
+                    );
+                });
             },
             open: (ws) => {
                 ws.client = new WebSocket(ws, ws.req, this);

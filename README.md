@@ -53,7 +53,7 @@ WIP
 - ✅ port
 - ✅ server
 - ❌ skipUTF8Validation 
-- ❌ verifyClient
+- ✅ verifyClient
 - ❌ WebSocket
 - ✅ callback
 
