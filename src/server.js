@@ -25,6 +25,9 @@ module.exports = class WebSocketServer extends EventEmitter {
         if(typeof options.clientTracking === 'undefined') {
             options.clientTracking = true;
         }
+        if(typeof options.autoPong === 'undefined') {
+            options.autoPong = true;
+        }
 
         if(options.clientTracking) {
             this.clients = new Set();
@@ -47,21 +50,29 @@ module.exports = class WebSocketServer extends EventEmitter {
 
     createHandler() {
         this.uwsApp.ws(this.options.path, {
+            sendPingsAutomatically: this.options.autoPong,
             upgrade: (res, req, context) => {
                 const headers = [];
                 const msg = new IncomingMessage(this, req, res);
                 this.emit("headers", headers, msg);
-                if(headers.length) {
+                if(headers.length || this.options.handleProtocols) {
                     res.writeStatus("101 Switching Protocols");
+                }
+                if(headers.length) {
                     for(const header of headers) {
                         const [name, value] = header.split(": ");
                         res.writeHeader(name, value);
                     }
                 }
+                let protocol;
+                if(this.options.handleProtocols) {
+                    const protocols = new Set(req.getHeader('sec-websocket-protocol').split(","));
+                    protocol = this.options.handleProtocols(protocols, msg);
+                }
                 res.upgrade(
                     { req: msg },
                     req.getHeader('sec-websocket-key'),
-                    req.getHeader('sec-websocket-protocol'),
+                    protocol ?? req.getHeader('sec-websocket-protocol'),
                     req.getHeader('sec-websocket-extensions'),
                     context
                 );

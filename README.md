@@ -32,11 +32,11 @@ WIP
 
 #### Server options
 
-- ❌ autoPong
+- ✅ autoPong
 - ❌ allowSynchronousEvents 
 - ❌ backlog
 - ✅ clientTracking
-- ❌ handleProtocols
+- ✅ handleProtocols
 - ❌ host
 - ❌ maxPayload
 - ❌ noServer
@@ -63,15 +63,15 @@ WIP
 - ✅ connection
 - ✅ headers
 - ✅ listening
-- 🚧 error - uWS never throws errors
-- 🚧 wsClientError - uWS never throws errors
+- 🚧 error - µWS never throws errors
+- 🚧 wsClientError - µWS never throws errors
 
 #### Server properties
 
 - ✅ server.address()
 - ✅ server.clients
 - ✅ server.close(callback)
-- ❌ server.handleUpgrade(request, socket, head, callback) - this is unneeded. Just pass `server` (uWS.App or [µExpress app](https://github.com/dimdenGD/ultimate-express)) to `WebSocketServer` as option. See above for example.
+- ❌ server.handleUpgrade(request, socket, head, callback) - this is unneeded. Just pass `server` (uWS.App or [µExpress app](https://github.com/dimdenGD/ultimate-express)) to `WebSocketServer` as option. See above for an example.
 - ❌ server.shouldHandle(request)
 
 ### Client
@@ -86,7 +86,7 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ pong
 - ✅ dropped - this event only exists in Ultimate WS for handling dropped messages
 - ✅ drain - this event only exists in Ultimate WS for handling backpressure draining
-- 🚧 error - uWS never throws errors
+- 🚧 error - µWS never throws errors
 
 #### Client properties
 
