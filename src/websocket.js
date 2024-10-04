@@ -26,6 +26,10 @@ class WebSocket extends EventEmitter {
         return this.ws.getBufferedAmount();
     }
 
+    get protocol() {
+        return this.req.headers["sec-websocket-protocol"] ? this.req.headers["sec-websocket-protocol"].split(',')[0].trim() : '';
+    }
+
     ping() {
         this.ws.ping();
     }
