@@ -1,4 +1,4 @@
-// must support ping
+// must support send
 
 const ws = require("ws");
 
