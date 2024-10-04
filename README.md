@@ -108,4 +108,8 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ client.readyState
 - ✅ client.removeEventListener(type, listener)
 - ❌ client.send(data, options, callback)
+- - ❌ options.binary
+- - ❌ options.compress
+- - ❌ options.fin
+- - ❌ options.mask
 - ❌ client.terminate()
