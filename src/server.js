@@ -65,7 +65,7 @@ module.exports = class WebSocketServer extends EventEmitter {
             }
             process.nextTick(() => this.listen(options.port, callback));
         } else {
-            this.uwsApp = options.server;
+            this.uwsApp = options.server.uwsApp ?? options.server;
         }
         this.createHandler();
     }
