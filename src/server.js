@@ -88,6 +88,12 @@ module.exports = class WebSocketServer extends EventEmitter {
             },
             pong: (ws, message) => {
                 ws.client.emit("pong", ws.client.parseMessage(message));
+            },
+            dropped: (ws, message, isBinary) => {
+                ws.client.emit("dropped", ws.client.parseMessage(message), isBinary);
+            },
+            drain: (ws) => {
+                ws.client.emit("drain");
             }
         });
     }

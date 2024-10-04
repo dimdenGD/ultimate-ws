@@ -27,8 +27,6 @@ WIP
 - ✅ WebSocket.CLOSING
 - ✅ WebSocket.CLOSED
 - ❌ WebSocket.createWebSocketStream
-- ❌ WebSocket.Receiver
-- ❌ WebSocket.Sender
 
 ### Server
 
@@ -86,6 +84,8 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ message
 - ✅ ping
 - ✅ pong
+- ✅ dropped - this event only exists in Ultimate WS for handling dropped messages
+- ✅ drain - this event only exists in Ultimate WS for handling backpressure draining
 - 🚧 error - uWS never throws errors
 
 #### Client properties
