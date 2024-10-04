@@ -142,7 +142,9 @@ Below is the list of supported features and their compatibility:
 
 #### Server options
 
-- ✅ autoPong (uWS: sendPingsAutomatically, default `true`)
+`ws` options:
+
+- ✅ autoPong (maps to uWS `sendPingsAutomatically`, default `true`)
 - ❌ allowSynchronousEvents 
 - ❌ backlog
 - ✅ clientTracking
@@ -158,6 +160,9 @@ Below is the list of supported features and their compatibility:
 - ✅ verifyClient
 - ✅ WebSocket
 - ✅ callback
+
+`uWS` options (additional options that `ws` doesn't have):  
+
 - ✅ maxBackpressure (default `maxPayload`)
 - ✅ idleTimeout (default 120)
 - ✅ maxLifetime (default 0)
