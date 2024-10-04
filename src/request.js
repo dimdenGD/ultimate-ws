@@ -14,6 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+const discardedDuplicates = [
+    "age", "authorization", "content-length", "content-type", "etag", "expires",
+    "from", "host", "if-modified-since", "if-unmodified-since", "last-modified",
+    "location", "max-forwards", "proxy-authorization", "referer", "retry-after",
+    "server", "user-agent"
+];
+
 module.exports = class IncomingMessage {
     #rawHeadersEntries = [];
     #cachedHeaders = null;
