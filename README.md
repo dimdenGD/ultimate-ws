@@ -43,7 +43,6 @@ const wsServer = new ws.WebSocketServer({ noServer: true });
 
 app.get("/", (_, res) => res.send("Hello, world!"));
 
-
 const server = http.createServer(app);
 server.on("upgrade", (request, socket, head) => {
     const { pathname } = url.parse(request.url);
@@ -65,6 +64,8 @@ app.get("/", (_, res) => res.send("Hello, world!"));
 
 const wsServer = new WebSocketServer({ server: app, path: "/wspath" }); // path is optional
 
+// your usual `ws` server code ...
+
 app.listen(3000);
 ```
 
@@ -76,7 +77,7 @@ const { WebSocketServer } = require("ultimate-ws");
 
 const wsServer = new WebSocketServer({ port: 3000 });
 
-// your usual `ws` server code
+// your usual `ws` server code ...
 wsServer.on("connection", (socket) => {
     socket.on("message", (message) => {
         socket.send(message);
@@ -93,6 +94,8 @@ const uws = require("uWebSockets.js");
 
 const server = uws.App();
 const wsServer = new WebSocketServer({ server: server });
+
+// your usual `ws` server code ...
 
 server.listen(3000);
 ```
