@@ -1,6 +1,6 @@
 # Ultimate WS
 
-The *Ultimate* WebSocket server. Ultimate WS is a faster, drop-in replacement for `ws` module, with support for [Ultimate Express](https://github.com/dimdenGD/ultimate-express) http upgrades. It uses [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js) under the hood.  
+The *Ultimate* WebSocket server. Ultimate WS is an extremely fast, drop-in replacement for `ws` module, with support for [Ultimate Express](https://github.com/dimdenGD/ultimate-express) http upgrades. It uses [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js) under the hood.  
   
 It's useful when:
 - You want same API as `ws` module, but the speed of `uWebSockets.js`
@@ -11,6 +11,15 @@ It's useful when:
 [![Node.js >= 16.0.0](https://img.shields.io/badge/Node.js-%3E=16.0.0-green)](https://nodejs.org)
 [![npm](https://img.shields.io/npm/v/ultimate-ws?label=last+version)](https://npmjs.com/package/ultimate-ws)
 [![Patreon](https://img.shields.io/badge/donate-Patreon-orange)](https://patreon.com/dimdendev)
+
+## Performance
+
+Echo test using `artillery` (duration: 20, arrivalRate: 10000):
+
+| Module            | Send rate     | Mean Session length | Median Session length |
+|-------------------|---------------|---------------------|-----------------------|
+| `ws`              | 2709/sec      | 2535ms              | 127ms                 |
+| **`ultimate-ws`** | **10046/sec** | **45ms**            | **12ms**              |
 
 
 ## Compatibility
