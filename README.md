@@ -78,9 +78,9 @@ const { WebSocketServer } = require("ultimate-ws");
 const wsServer = new WebSocketServer({ port: 3000 });
 
 // your usual `ws` server code ...
-wsServer.on("connection", (socket) => {
-    socket.on("message", (message) => {
-        socket.send(message);
+wsServer.on("connection", (ws) => {
+    ws.on("message", (message) => {
+        ws.send(message);
     });
 });
 ```
