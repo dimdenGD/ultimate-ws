@@ -69,6 +69,8 @@ const wsServer = new WebSocketServer({ server: app, path: "/wspath" }); // path 
 app.listen(3000);
 ```
 
+[Ultimate Express](https://github.com/dimdenGD/ultimate-express) is fully compatible, much faster `express` implementation.
+
 ### Stand-alone usage
 
 If you want to use Ultimate WS without any existing http server, you can do this:
