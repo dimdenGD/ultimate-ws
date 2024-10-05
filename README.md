@@ -59,6 +59,7 @@ You need to do this:
 ```js
 const express = require("ultimate-express");
 const app = express();
+const { WebSocketServer } = require("ultimate-ws");
 
 app.get("/", (_, res) => res.send("Hello, world!"));
 
