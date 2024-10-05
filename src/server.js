@@ -173,8 +173,9 @@ module.exports = class WebSocketServer extends EventEmitter {
                 if(this.options.allowSynchronousEvents) {
                     ws.client.emit("message", ws.client.parseMessage(message, isBinary), isBinary);
                 } else {
+                    const msg = ws.client.parseMessage(message, isBinary);
                     setImmediate(() => {
-                        ws.client.emit("message", ws.client.parseMessage(message, isBinary), isBinary);
+                        ws.client.emit("message", msg, isBinary);
                     });
                 }
             },
@@ -182,8 +183,9 @@ module.exports = class WebSocketServer extends EventEmitter {
                 if(this.options.allowSynchronousEvents) {
                     ws.client.emit("ping", ws.client.parseMessage(message));
                 } else {
+                    const msg = ws.client.parseMessage(message);
                     setImmediate(() => {
-                        ws.client.emit("ping", ws.client.parseMessage(message));
+                        ws.client.emit("ping", msg);
                     });
                 }
             },
@@ -191,8 +193,9 @@ module.exports = class WebSocketServer extends EventEmitter {
                 if(this.options.allowSynchronousEvents) {
                     ws.client.emit("pong", ws.client.parseMessage(message));
                 } else {
+                    const msg = ws.client.parseMessage(message);
                     setImmediate(() => {
-                        ws.client.emit("pong", ws.client.parseMessage(message));
+                        ws.client.emit("pong", msg);
                     });
                 }
             },
