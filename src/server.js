@@ -95,6 +95,9 @@ module.exports = class WebSocketServer extends EventEmitter {
                 }
                 const headers = [];
                 const msg = new IncomingMessage(this, req, res);
+                res.onAborted(() => {
+                    msg.finished = true;
+                });
 
                 if(this.options.verifyClient) {
                     if(this.options.verifyClient.length === 1) {
@@ -113,6 +116,9 @@ module.exports = class WebSocketServer extends EventEmitter {
                                 req: msg,
                                 secure: this.ssl,
                             }, (result, code, name, headers = {}) => {
+                                if(msg.finished) {
+                                    return resolve(false);
+                                }
                                 if(!result) {
                                     res.writeStatus(`${code} ${name}`);
                                     for(const header in headers) {
@@ -127,6 +133,17 @@ module.exports = class WebSocketServer extends EventEmitter {
                         if(!result) {
                             return;
                         }
+                    }
+                }
+
+                let onOpen;
+                if(this.options.handleUpgrade) {
+                    const result = await this.options.handleUpgrade(msg);
+                    if(result === false) {
+                        return;
+                    }
+                    if(typeof result === 'function') {
+                        onOpen = result;
                     }
                 }
 
@@ -147,7 +164,7 @@ module.exports = class WebSocketServer extends EventEmitter {
                         protocol = this.options.handleProtocols(protocols, msg);
                     }
                     res.upgrade(
-                        { req: msg },
+                        { req: msg, onOpen },
                         req.getHeader('sec-websocket-key'),
                         protocol ?? req.getHeader('sec-websocket-protocol'),
                         req.getHeader('sec-websocket-extensions'),
@@ -158,7 +175,11 @@ module.exports = class WebSocketServer extends EventEmitter {
             open: (ws) => {
                 ws.client = new this.options.WebSocket(ws, ws.req, this);
                 if(this.clients) this.clients.add(ws.client);
-                this.emit("connection", ws.client, ws.req);
+                if(onOpen) {
+                    onOpen(ws.client, ws.req);
+                } else {
+                    this.emit("connection", ws.client, ws.req);
+                }
             },
             close: (ws) => {
                 ws.client.readyState = WS.CLOSED;

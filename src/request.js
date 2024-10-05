@@ -70,6 +70,11 @@ module.exports = class IncomingMessage {
             localPort: this.app.port,
             remotePort: this.app.port,
             encrypted: this.app.ssl,
+            destroy: () => this.res.close(),
+            end: (data, encoding, callback) => {
+                this.res.end(data, true);
+                if(callback) process.nextTick(callback);
+            },
         };
     }
 

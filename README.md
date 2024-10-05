@@ -118,6 +118,71 @@ const wsServer = new WebSocketServer({
 });
 ```
 
+## Handling requests before connection
+
+Instead of this:
+
+```js
+const http = require("http");
+const express = require("express");
+const ws = require("ws");
+
+const app = express();
+const wsServer = new ws.WebSocketServer({ noServer: true, path: "/wspath" }); // path is optional
+
+app.get("/", (_, res) => res.send("Hello, world!"));
+
+const server = http.createServer(app);
+server.on("upgrade", async (request, socket, head) => {
+    const user = await getUserFromDatabase(request.headers['authorization']); // your auth logic
+    if(!user) return socket.destroy();
+    
+    wsServer.handleUpgrade(request, socket, head, (ws) => {
+        ws.user = user;
+        wsServer.emit("connection", ws, request);
+    });
+});
+
+server.listen(3000);
+```
+
+You can do this:
+```js
+const { WebSocketServer } = require("ultimate-ws");
+const express = require("ultimate-express");
+
+const app = express();
+
+const wsServer = new WebSocketServer({
+    server: app,
+    handleUpgrade: async (request) => {
+        const user = await getUserFromDatabase(request.headers['authorization']); // your auth logic
+        if(!user) {
+            // request has `req` and `res` properties, which are instances of `uws.HttpRequest` and `uws.HttpResponse`
+            request.res.cork(() => {
+                request.res.writeStatus("401 Unauthorized");
+                request.res.end();
+            });
+            return false;
+        }
+        
+        return (ws, request) => {
+            ws.user = user;
+            wsServer.emit("connection", ws, request);
+        }
+    }
+});
+
+app.get("/", (_, res) => res.send("Hello, world!"));
+
+app.listen(3000);
+```
+
+- if `handleUpgrade` returns a function, it will be called with the new `WebSocket` instance and original request. "connection" will not be emitted automatically.
+- if it returns `false`, the connection will not be upgraded. It's your responsibility to destroy the socket.
+- if it returns nothing or anything else, the connection will be handled as usual, and "connection" event will be emitted.
+- By default (`handleUpgrade: undefined`), the connection will be handled as usual, and "connection" event will be emitted.
+  
 ## Compatibility
 
 All commonly used `ws` features are supported. Almost all ws servers should work, as it's built with maximum compatibility in mind.
