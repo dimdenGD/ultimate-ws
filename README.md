@@ -145,7 +145,7 @@ Below is the list of supported features and their compatibility:
 `ws` options:
 
 - ✅ autoPong (maps to uWS `sendPingsAutomatically`, default `true`)
-- ✅ allowSynchronousEvents (low performance when `false`, default `true`)
+- ✅ allowSynchronousEvents (may lower performance when `false`, default `true`)
 - ❌ backlog
 - ✅ clientTracking
 - ✅ handleProtocols
