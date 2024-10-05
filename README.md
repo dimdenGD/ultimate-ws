@@ -146,20 +146,20 @@ Below is the list of supported features and their compatibility:
 
 - ✅ autoPong (maps to uWS `sendPingsAutomatically`, default `true`)
 - ✅ allowSynchronousEvents (may lower performance when `false`, default `true`)
-- ❌ backlog
 - ✅ clientTracking
 - ✅ handleProtocols
 - ✅ host
 - ✅ maxPayload (default 100mb)
-- ❌ noServer - see example above for alternative
 - ✅ path
 - 🚧 perMessageDeflate - pass `true` for `DEDICATED_COMPRESSOR_4KB | DEDICATED_DECOMPRESSOR` or your own [`CompressOptions`](https://unetworking.github.io/uWebSockets.js/generated/types/CompressOptions.html) number. Options are not supported and if this is an object it will be treated as `true`.
 - ✅ port
 - ✅ server
-- ❌ skipUTF8Validation 
 - ✅ verifyClient
 - ✅ WebSocket
 - ✅ callback
+- ❌ noServer - see examples above for alternatives
+- ❌ skipUTF8Validation - uWS always validates UTF-8 when message is a string
+- ❌ backlog
 
 `uWS` options (additional options that `ws` doesn't have):  
 
