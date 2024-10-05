@@ -241,8 +241,8 @@ Below is the list of supported features and their compatibility:
 - ✅ connection
 - ✅ headers
 - ✅ listening
-- 🚧 error - µWS never throws errors
-- 🚧 wsClientError - µWS never throws errors
+- ✅ error - µWS never throws errors
+- ✅ wsClientError - µWS never throws errors
 
 #### Server properties
 
@@ -264,7 +264,7 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ pong
 - ✅ dropped - this event only exists in Ultimate WS for handling dropped messages
 - ✅ drain - this event only exists in Ultimate WS for handling backpressure draining
-- 🚧 error - µWS never throws errors
+- ✅ error - µWS never throws errors
 
 #### Client properties
 
@@ -275,7 +275,7 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ client.isPaused
 - ✅ client.extensions
 - ✅ client.onclose
-- 🚧 client.onerror
+- ✅ client.onerror
 - ✅ client.onmessage
 - ✅ client.onopen
 - ✅ client.pause()
