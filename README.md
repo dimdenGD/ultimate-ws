@@ -71,7 +71,7 @@ app.listen(3000);
 
 ### Stand-alone usage
 
-If you want to use Ultimate WS without any http server, you can do this:
+If you want to use Ultimate WS without any existing http server, you can do this:
 ```js
 const { WebSocketServer } = require("ultimate-ws");
 
