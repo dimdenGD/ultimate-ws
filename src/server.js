@@ -249,20 +249,20 @@ module.exports = class WebSocketServer extends EventEmitter {
             this.emit("listening");
             if(callback) callback(this.port);
         }
-        let args = [port];
+        let args = [];
         if(typeof port !== 'number') {
             if(!isNaN(Number(port))) {
                 port = Number(port);
-                args.push(onListening);
+                args.push(port, onListening);
                 if(this.options.host) {
                     args.unshift(this.options.host);
                 }
             } else {
                 fn = 'listen_unix';
-                args.unshift(onListening);
+                args.unshift(onListening, port);
             }
         } else {
-            args.push(onListening);
+            args.push(port, onListening);
             if(this.options.host) {
                 args.unshift(this.options.host);
             }
