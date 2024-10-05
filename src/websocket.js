@@ -53,6 +53,7 @@ class WebSocket extends EventEmitter {
     }
 
     ping() {
+        if(this.readyState !== this.OPEN) return;
         this.ws.ping();
     }
 
@@ -66,6 +67,10 @@ class WebSocket extends EventEmitter {
     }
 
     send(data, options = {}, callback) {
+        if(this.readyState !== this.OPEN) {
+            if(callback) callback(new Error("WebSocket is not open"));
+            return;
+        }
         if(typeof options === "function") {
             callback = options;
             options = {};
