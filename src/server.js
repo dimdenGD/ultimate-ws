@@ -93,6 +93,10 @@ module.exports = class WebSocketServer extends EventEmitter {
                     msg.finished = true;
                 });
 
+                if(!this.shouldHandle(msg)) {
+                    return res.writeStatus("400 Bad Request").end();
+                }
+
                 if(this.options.verifyClient) {
                     if(this.options.verifyClient.length === 1) {
                         const result = this.options.verifyClient({
@@ -221,6 +225,10 @@ module.exports = class WebSocketServer extends EventEmitter {
                 ws.client.emit("drain");
             }
         });
+    }
+
+    shouldHandle(req) {
+        return true;
     }
 
     address() {

@@ -254,8 +254,8 @@ Below is the list of supported features and their compatibility:
 - ✅ server.address()
 - ✅ server.clients
 - ✅ server.close(callback)
+- ✅ server.shouldHandle(request)
 - ❌ server.handleUpgrade(request, socket, head, callback) - see examples above for alternatives
-- ❌ server.shouldHandle(request)
 
 ### Client
 
