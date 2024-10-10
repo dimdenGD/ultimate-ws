@@ -87,12 +87,6 @@ module.exports = class WebSocketServer extends EventEmitter {
             compression: typeof this.options.perMessageDeflate !== 'number' && this.options.perMessageDeflate ? 
                 (uWS.DEDICATED_COMPRESSOR_4KB | uWS.DEDICATED_DECOMPRESSOR) : this.options.perMessageDeflate,
             upgrade: async (res, req, context) => {
-                if(this.options.host) {
-                    const host = req.getHeader('host');
-                    if(host !== this.options.host) {
-                        return req.setYield(true);
-                    }
-                }
                 const headers = [];
                 const msg = new IncomingMessage(this, req, res);
                 res.onAborted(() => {

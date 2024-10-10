@@ -129,13 +129,14 @@ const express = require("express");
 const ws = require("ws");
 
 const app = express();
-const wsServer = new ws.WebSocketServer({ noServer: true, path: "/wspath" }); // path is optional
+const wsServer = new ws.WebSocketServer({ noServer: true, path: "/wspath" });
 
 app.get("/", (_, res) => res.send("Hello, world!"));
 
 const server = http.createServer(app);
 server.on("upgrade", async (request, socket, head) => {
-    const user = await getUserFromDatabase(request.headers['authorization']); // your auth logic
+    // your auth logic
+    const user = await getUserFromDatabase(request.headers['authorization']);
     if(!user) return socket.destroy();
     
     wsServer.handleUpgrade(request, socket, head, (ws) => {
@@ -147,7 +148,7 @@ server.on("upgrade", async (request, socket, head) => {
 server.listen(3000);
 ```
 
-You can do this:
+You should do this:
 ```js
 const { WebSocketServer } = require("ultimate-ws");
 const express = require("ultimate-express");
@@ -156,10 +157,13 @@ const app = express();
 
 const wsServer = new WebSocketServer({
     server: app,
+    path: "/wspath",
     handleUpgrade: async (request) => {
-        const user = await getUserFromDatabase(request.headers['authorization']); // your auth logic
+        // your auth logic
+        const user = await getUserFromDatabase(request.headers['authorization']);
         if(!user) {
-            // request has `req` and `res` properties, which are instances of `uws.HttpRequest` and `uws.HttpResponse`
+            // request has `req` and `res` properties
+            // which are instances of `uws.HttpRequest` and `uws.HttpResponse`
             request.res.cork(() => {
                 request.res.writeStatus("401 Unauthorized");
                 request.res.end();
@@ -250,7 +254,7 @@ Below is the list of supported features and their compatibility:
 - ✅ server.address()
 - ✅ server.clients
 - ✅ server.close(callback)
-- ❌ server.handleUpgrade(request, socket, head, callback) - this is unneeded. Just pass `server` (uWS.App or [µExpress app](https://github.com/dimdenGD/ultimate-express)) to `WebSocketServer` as option. See above for an example.
+- ❌ server.handleUpgrade(request, socket, head, callback) - see examples above for alternatives
 - ❌ server.shouldHandle(request)
 
 ### Client
