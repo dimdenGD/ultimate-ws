@@ -118,11 +118,13 @@ module.exports = class WebSocketServer extends EventEmitter {
                                     return resolve(false);
                                 }
                                 if(!result) {
-                                    res.writeStatus(`${code} ${name}`);
-                                    for(const header in headers) {
-                                        res.writeHeader(header, headers[header]);
-                                    }
-                                    res.end();
+                                    res.cork(() => {
+                                        res.writeStatus(`${code} ${name}`);
+                                        for(const header in headers) {
+                                            res.writeHeader(header, headers[header]);
+                                        }
+                                        res.end();
+                                    });
                                     return resolve(false);
                                 }
                                 resolve(true);
