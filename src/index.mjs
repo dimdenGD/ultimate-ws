@@ -14,14 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { createRequire } from "module";
-
-const require = createRequire(import.meta.url);
-
-const WebSocket = require("ws");
-const WebSocketServer = require("./server.js");
-
-const createWebSocketStream = WebSocket.createWebSocketStream;
+import WebSocket, { createWebSocketStream } from "ws";
+import WebSocketServer from "./server.js";
 
 export { WebSocketServer, WebSocket, createWebSocketStream };
 export default WebSocket;
