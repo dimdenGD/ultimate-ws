@@ -59,7 +59,7 @@ class WebSocket extends EventEmitter {
 
     pong() {
         // unsupported by uws
-        console.warn("pong is not supported by uws, as its handled automatically");
+        console.warn("client.pong() is not supported by ultimate-ws, as its handled automatically");
     }
 
     close(code, reason) {

@@ -285,7 +285,7 @@ This category only describes server clients. Client-side (`new ws.WebSocket()`) 
 - ✅ client.onopen
 - ✅ client.pause()
 - 🚧 client.ping()
-- ❌ client.pong(data, mask, callback)
+- ❌ client.pong(data, mask, callback) - pongs are handled automatically, method does nothing
 - ✅ client.protocol
 - ✅ client.resume()
 - ✅ client.readyState
