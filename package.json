@@ -16,6 +16,9 @@
   "scripts": {
     "test": "node tests/index.js"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dimdenGD/ultimate-ws.git"
@@ -38,8 +41,8 @@
   "homepage": "https://github.com/dimdenGD/ultimate-ws#readme",
   "dependencies": {
     "tseep": "^1.3.1",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.51.0",
-    "ws": "^8.18.0"
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.52.0",
+    "ws": "^8.18.2"
   },
   "devDependencies": {
     "exit-hook": "^2.2.1"
