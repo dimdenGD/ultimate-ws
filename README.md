@@ -6,7 +6,7 @@ It's useful when:
 - You want same API as `ws` module, but the speed of `uWebSockets.js`
 - You want to convert your Express app with `ws` to use [Ultimate Express](https://github.com/dimdenGD/ultimate-express) instead
     
-[![Node.js >= 16.0.0](https://img.shields.io/badge/Node.js-%3E=16.0.0-green)](https://nodejs.org)
+[![Node.js >= 20.0.0](https://img.shields.io/badge/Node.js-%3E=20.0.0-green)](https://nodejs.org)
 [![npm](https://img.shields.io/npm/v/ultimate-ws?label=last+version)](https://npmjs.com/package/ultimate-ws)
 [![Patreon](https://img.shields.io/badge/donate-Patreon-orange)](https://patreon.com/dimdendev)
 
