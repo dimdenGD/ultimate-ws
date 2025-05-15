@@ -1,6 +1,6 @@
 {
   "name": "ultimate-ws",
-  "version": "1.0.13",
+  "version": "2.0.0",
   "description": "The Ultimate WebSocket server. ws-compatible server, based on uWebSockets.",
   "main": "src/index.js",
   "directories": {
