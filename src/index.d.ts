@@ -1,7 +1,6 @@
 import * as ws from 'ws';
 import * as uWS from 'uWebSockets.js';
 import {IncomingMessage} from 'http';
-import { Duplex } from 'stream';
 
 declare namespace WebSocket {
     type HandleUpgradeResult<T, U> = (ws: T, request: U) => void | false | void;
