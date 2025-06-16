@@ -9,6 +9,7 @@
   "files": [
     "src"
   ],
+  "types": "src/index.d.ts",
   "exports": {
     "require": "./src/index.js",
     "import": "./src/index.mjs"
