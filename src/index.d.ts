@@ -1,9 +1,10 @@
-import * as ws from 'ws';
-import * as uWS from 'uWebSockets.js';
+import ws from 'ws';
+import uWS from 'uWebSockets.js';
 import {IncomingMessage} from 'http';
 
 declare namespace WebSocket {
     type HandleUpgradeResult<T, U> = (ws: T, request: U) => void | false | void;
+    type UExpressApp = {uwsApp: uWS.TemplatedApp, [key: string]: any};
 
     interface ServerOptions<
         T extends typeof WebSocketClient = typeof WebSocketClient,
@@ -15,6 +16,18 @@ declare namespace WebSocket {
         perMessageDeflate?: boolean | uWS.CompressOptions | ws.PerMessageDeflateOptions;
 
         uwsOptions?: uWS.AppOptions;
+        server?: UExpressApp | uWS.TemplatedApp;
+
+        /** Maximum length of allowed backpressure per socket when publishing or sending messages. Slow receivers with too high backpressure will be skipped until they catch up or timeout. Defaults to `maxPayload (default: 100mb)`. */
+        maxBackpressure?: number;
+        /** Maximum amount of seconds that may pass without sending or getting a message. Connection is closed if this timeout passes. Resolution (granularity) for timeouts are typically 4 seconds, rounded to closest.
+         * Disable by using 0. Defaults to 120.
+         */
+        idleTimeout?: 120;
+        /** Maximum number of minutes a WebSocket may be connected before being closed by the server. 0 disables the feature. */
+        maxLifetime?: 0;
+        /** Whether or not we should automatically close the socket when a message is dropped due to backpressure. Defaults to false. */
+        closeOnBackpressureLimit?: false;
 
         /**
          * Custom upgrade handler
@@ -33,6 +46,7 @@ declare namespace WebSocket {
     > extends ws.Server<T, U> {
         constructor(options: WebSocket.ServerOptions<T, U>);
 
+        readonly uwsApp: uWS.TemplatedApp;
         // Override ws.Server's handleUpgrade to prevent usage
         // passing a custom handleUpgrade function in constructor option for alternatives.
         override handleUpgrade: never;
