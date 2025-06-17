@@ -18,6 +18,17 @@ declare namespace WebSocket {
         uwsOptions?: uWS.AppOptions;
         server?: UExpressApp | uWS.TemplatedApp;
 
+        /** Maximum length of allowed backpressure per socket when publishing or sending messages. Slow receivers with too high backpressure will be skipped until they catch up or timeout. Defaults to `maxPayload (default: 100mb)`. */
+        maxBackpressure?: number;
+        /** Maximum amount of seconds that may pass without sending or getting a message. Connection is closed if this timeout passes. Resolution (granularity) for timeouts are typically 4 seconds, rounded to closest.
+         * Disable by using 0. Defaults to 120.
+         */
+        idleTimeout?: 120;
+        /** Maximum number of minutes a WebSocket may be connected before being closed by the server. 0 disables the feature. */
+        maxLifetime?: 0;
+        /** Whether or not we should automatically close the socket when a message is dropped due to backpressure. Defaults to false. */
+        closeOnBackpressureLimit?: false;
+
         /**
          * Custom upgrade handler
          * By default (handleUpgrade: undefined), the connection will be handled as usual, and "connection" event will be emitted.
