@@ -1,9 +1,10 @@
-import * as ws from 'ws';
-import * as uWS from 'uWebSockets.js';
+import ws from 'ws';
+import uWS from 'uWebSockets.js';
 import {IncomingMessage} from 'http';
 
 declare namespace WebSocket {
     type HandleUpgradeResult<T, U> = (ws: T, request: U) => void | false | void;
+    type UExpressApp = {uwsApp: uWS.TemplatedApp, [key: string]: any};
 
     interface ServerOptions<
         T extends typeof WebSocketClient = typeof WebSocketClient,
@@ -15,6 +16,7 @@ declare namespace WebSocket {
         perMessageDeflate?: boolean | uWS.CompressOptions | ws.PerMessageDeflateOptions;
 
         uwsOptions?: uWS.AppOptions;
+        server?: UExpressApp | uWS.TemplatedApp;
 
         /**
          * Custom upgrade handler
@@ -33,6 +35,7 @@ declare namespace WebSocket {
     > extends ws.Server<T, U> {
         constructor(options: WebSocket.ServerOptions<T, U>);
 
+        readonly uwsApp: uWS.TemplatedApp;
         // Override ws.Server's handleUpgrade to prevent usage
         // passing a custom handleUpgrade function in constructor option for alternatives.
         override handleUpgrade: never;
