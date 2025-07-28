@@ -89,6 +89,11 @@ module.exports = class WebSocketServer extends EventEmitter {
             upgrade: async (res, req, context) => {
                 const headers = [];
                 const msg = new IncomingMessage(this, req, res);
+
+                const secWebSocketKey = req.getHeader('sec-websocket-key');
+                const secWebSocketProtocol = req.getHeader('sec-websocket-protocol');
+                const secWebSocketExtensions = req.getHeader('sec-websocket-extensions');
+                
                 res.onAborted(() => {
                     msg.finished = true;
                 });
@@ -160,14 +165,14 @@ module.exports = class WebSocketServer extends EventEmitter {
                     }
                     let protocol;
                     if(this.options.handleProtocols) {
-                        const protocols = new Set(req.getHeader('sec-websocket-protocol').split(","));
+                        const protocols = new Set(secWebSocketProtocol.split(","));
                         protocol = this.options.handleProtocols(protocols, msg);
                     }
                     res.upgrade(
                         { req: msg, onOpen },
-                        req.getHeader('sec-websocket-key'),
-                        protocol ?? req.getHeader('sec-websocket-protocol'),
-                        req.getHeader('sec-websocket-extensions'),
+                        secWebSocketKey,
+                        protocol ?? secWebSocketProtocol,
+                        secWebSocketExtensions,
                         context
                     );
                 });
