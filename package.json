@@ -1,6 +1,6 @@
 {
   "name": "ultimate-ws",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "The Ultimate WebSocket server. ws-compatible server, based on uWebSockets.",
   "main": "src/index.js",
   "directories": {
@@ -11,8 +11,16 @@
   ],
   "types": "src/index.d.ts",
   "exports": {
-    "require": "./src/index.js",
-    "import": "./src/index.mjs"
+    ".": {
+      "require": {
+        "types": "./src/index.d.ts",
+        "default": "./src/index.js"
+      },
+      "import": {
+        "types": "./src/index.d.ts",
+        "default": "./src/index.mjs"
+      }
+    }
   },
   "scripts": {
     "test": "node tests/index.js"
