@@ -1,6 +1,6 @@
 {
   "name": "ultimate-ws",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "The Ultimate WebSocket server. ws-compatible server, based on uWebSockets.",
   "main": "src/index.js",
   "directories": {
@@ -50,7 +50,7 @@
   "homepage": "https://github.com/dimdenGD/ultimate-ws#readme",
   "dependencies": {
     "tseep": "^1.3.1",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.55.0",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.56.0",
     "ws": "^8.18.3"
   },
   "devDependencies": {
