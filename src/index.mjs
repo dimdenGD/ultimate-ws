@@ -17,5 +17,8 @@ limitations under the License.
 import WebSocket, { createWebSocketStream } from "ws";
 import WebSocketServer from "./server.js";
 
+WebSocket.Server = WebSocketServer;
+WebSocket.WebSocketServer = WebSocketServer;
+
 export { WebSocketServer, WebSocket, createWebSocketStream };
 export default WebSocket;
