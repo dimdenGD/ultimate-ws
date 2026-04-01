@@ -186,10 +186,10 @@ module.exports = class WebSocketServer extends EventEmitter {
                     this.emit("connection", ws.client, ws.req);
                 }
             },
-            close: (ws) => {
+            close: (ws, code, message) => {
                 ws.client.readyState = WS.CLOSED;
                 if(this.clients) this.clients.delete(ws.client);
-                ws.client.emit("close");
+                ws.client.emit("close", code, Buffer.from(message));
             },
             message: (ws, message, isBinary) => {
                 if(ws.client.isPaused) {
